@@ -28,7 +28,9 @@ jobs:
     steps:
     - name: Clone Project Files
       uses: actions/checkout@v2
-    - run: |
+    - name: Publish PowerShell Module
+      shell: pwsh
+      run: |
         ./build/publish.ps1
   docker:
     needs:
