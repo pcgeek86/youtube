@@ -1,0 +1,45 @@
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>Table</Name>
+            <ViewSelectedBy>
+                <TypeName>YouTube.VideoResult</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <AutoSize></AutoSize>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>VideoId</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Channel Title</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Published Date</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Title</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.id.videoId</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.channelTitle</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.publishedAt</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.title</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

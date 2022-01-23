@@ -1,0 +1,49 @@
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_TAG: ghcr.io/pcgeek86/pwsh-youtube
+
+jobs:
+  updatebuildnumber:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Project Files
+      uses: actions/checkout@v2
+    - name: Update Build Number
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Increment build number
+        file_pattern: BuildNumber
+    - name: Increment project build number
+      shell: pwsh
+      run: |
+        [int](Get-Content -Path BuildNumber)+1 | Set-Content -Path BuildNumber
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Project Files
+      uses: actions/checkout@v2
+    - run: |
+        ./build/publish.ps1
+  docker:
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Project Files
+      uses: actions/checkout@v2
+    - name: Log in to the Container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push Docker image to GitHub Packages
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/pcgeek86/pwsh-youtube
