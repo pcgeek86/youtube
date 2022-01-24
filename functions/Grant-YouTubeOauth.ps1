@@ -2,9 +2,14 @@ function Grant-YoutubeOauth {
   <#
   .SYNOPSIS
   Implementation of oAuth authentication for YouTube APIs.
+
+  .PARAMETER BrowserCommand
+  Use this parameter to override the command line to launch your browser (ie. chrome.exe, firefox, firefox.exe, chromium, etc.)
   #>
   [CmdletBinding()]
   param (
+    [Parameter(Mandatory = $false)]
+    [string] $BrowserCommand
   )
 
   $JobName = 'youtubetempwebserver'
@@ -40,7 +45,9 @@ function Grant-YoutubeOauth {
   )
   $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($ScopeList -join ' ')
 
-  Start-Process -FilePath chrome.exe -ArgumentList ('"{0}"' -f $Uri) -Wait
+  $Browser = $BrowserCommand ? $BrowserCommand : (Find-Browser)
+  Write-Verbose -Message ('Browser command line is: ' -f $Browser)
+  Start-Process -FilePath $Browser -ArgumentList ('"{0}"' -f $Uri) -Wait
 
   Stop-Job -Name $JobName
 }
