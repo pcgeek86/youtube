@@ -12,15 +12,15 @@ jobs:
     steps:
     - name: Clone Project Files
       uses: actions/checkout@v2
+    - name: Increment project build number
+      shell: pwsh
+      run: |
+        [int](Get-Content -Path BuildNumber)+1 | Set-Content -Path BuildNumber
     - name: Update Build Number
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Increment build number
         file_pattern: BuildNumber
-    - name: Increment project build number
-      shell: pwsh
-      run: |
-        [int](Get-Content -Path BuildNumber)+1 | Set-Content -Path BuildNumber
   publish:
     needs:
     - updatebuildnumber
