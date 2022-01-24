@@ -18,7 +18,9 @@ $Exclude = @(
 )
 
 # Copy project to temporary build directory
-Remove-Item -Path $BuildDirectory -Recurse -Force
+if (Test-Path -Path $BuildDirectory) {
+  Remove-Item -Path $BuildDirectory -Recurse -Force
+}
 $null = New-Item -ItemType Directory -Path $BuildDirectory
 Write-Host -Object 'Created build directory'
 Copy-Item -Exclude $Exclude -Path $ModulePath/* -Destination $BuildDirectory -Recurse
