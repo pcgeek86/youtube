@@ -31,7 +31,7 @@ jobs:
     - name: Publish PowerShell Module
       shell: pwsh
       run: |
-        ./build/publish.ps1
+        ./build/publish.ps1 -PSGalleryApiKey ${{ secrets.POWERSHELL_GALLERY_APIKEY }}
   docker:
     needs:
     - updatebuildnumber
