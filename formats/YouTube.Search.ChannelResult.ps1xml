@@ -1,0 +1,39 @@
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>Table</Name>
+            <ViewSelectedBy>
+                <TypeName>YouTube.Search.ChannelResult</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <AutoSize></AutoSize>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Channel Title</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Published Date</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>ChannelId</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.channelTitle</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.publishedAt</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.id.channelId</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
