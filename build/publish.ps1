@@ -28,6 +28,6 @@ Write-Host -Object 'Copied all items to build directory'
 
 # Replace module version with build number
 $ManifestPath = "$BuildDirectory/youtube.psd1"
-(Get-Content -Path $ManifestPath -Raw) -replace 'ModuleVersion = ''0.1''', ('ModuleVersion = ''0.1.{0}''' -f (Get-Content -Path $ModulePath/BuildNumber)) | Set-Content -Path $ManifestPath
+(Get-Content -Path $ManifestPath -Raw) -replace 'ModuleVersion = ''(?<version>.*?)''', ('ModuleVersion = ''${{version}}.{0}''' -f (Get-Content -Path $ModulePath/BuildNumber)) | Set-Content -Path $ManifestPath
 
 Publish-Module -Path $BuildDirectory -NuGetApiKey $PSGalleryApiKey
