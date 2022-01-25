@@ -26,5 +26,11 @@ function New-YouTubeComment {
     }
   } | ConvertTo-Json -Depth 5
   Write-Verbose -Message $Body
-  Invoke-RestMethod -Uri $Uri -Headers (Get-AccessToken) -Body $Body -Method Post
+  Write-Verbose -Message $Uri
+  $Headers = (Get-AccessToken) + @{
+    'Content-Type' = 'application/json'
+  }
+  Write-Verbose -Message ($Headers | ConvertTo-Json)
+
+  Invoke-RestMethod -Uri $Uri -Headers $Headers -Body $Body -Method Post
 }
