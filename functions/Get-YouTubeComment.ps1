@@ -3,7 +3,5 @@ function Get-YouTubeComment {
   param (
 
   )
-
-
-
+  throw 'This command is not implemented'
 }

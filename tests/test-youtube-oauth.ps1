@@ -1,5 +1,5 @@
 # Clean up old Chromium processes
-gps chrome | ? { $PSItem.MainModule.Filename -match 'chromium' } | spps
+Get-Process chrome | Where-Object -FilterScript { $PSItem.MainModule.Filename -match 'chromium' } | Stop-Process
 
 Import-Module -Name $PSScriptRoot/../ -Force
 

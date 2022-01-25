@@ -1,7 +1,10 @@
 function New-YouTubeComment {
   <#
   .SYNOPSIS
-  Creates a new top-level comment on a YouTube video. (BROKEN: Logged ticket with YouTube: https://issuetracker.google.com/issues/215967256)
+  Creates a new top-level comment on a YouTube video.
+
+  .EXAMPLE
+  New-YouTubeComment -ChannelId UCGpJOTbsdZH_sBxihz6p_wg -VideoId LFWxH-bexNk -Text 'Hello from PowerShell! 👨🏻‍💻'
   #>
   [CmdletBinding()]
   param (

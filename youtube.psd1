@@ -2,7 +2,7 @@
   RootModule = 'youtube.psm1'
   Author = 'Trevor Sullivan <trevor@trevorsullivan.net>'
   CompanyName = 'Trevor Sullivan'
-  ModuleVersion = '0.2'
+  ModuleVersion = '0.3'
   GUID = '4f1448cd-300f-444c-afdf-8ed678504ffd'
   Copyright = '2022 Trevor Sullivan'
   Description = 'Manage YouTube from the command line with PowerShell.'
@@ -19,9 +19,11 @@
     'Get-YouTubeComment'
     'New-YouTubeComment'
     'Remove-YouTubeComment'
+    'Add-YouTubeSubscription'
     'Get-YouTubeSubscription'
     'Remove-YouTubeSubscription'
     'Get-YouTubeActivity'
+    'Get-YouTubeChannel'
   )
   AliasesToExport = @('')
   VariablesToExport = @('')
@@ -32,7 +34,14 @@
       ProjectUri = ''
       IconUri = ''
       ReleaseNotes = @'
-0.1 - Initial realease
+0.2 
+
+- Added New-YouTubeComment to create a top-level comment thread
+
+
+0.1
+
+- Initial realease
 '@
     }
   }

@@ -4,10 +4,12 @@ The purpose of this PowerShell module is to enable you to manage YouTube data fr
 
 ### 🚀 Features
 
-* Search for YouTube videos with queries
+* Search for YouTube videos or channels
 * Get details for YouTube videos (ie. duration, like count, comment count)
 * Retrieve top-level comments from YouTube videos
 * Delete a comment, from a YouTube video you own
+* [Post a comment](#-🗨️-post-comment-on-youtube-video) on a video
+* Subscribe or unsubscribe from a YouTube channel
 
 ### 📦 Installation
 
@@ -129,3 +131,16 @@ UgwMHBsGm_sL3cMMzA14AaABAg 2/3/2020 8:35:19 PM    2/3/2020 8:35:19 PM    0      
 UgwTUdL6EeyOSc-6-8p4AaABAg 2/2/2020 11:46:46 PM   2/2/2020 11:46:46 PM   1       2          Guido Oliveira  This camera quality is amazing Trevor! awesome explanation as well!
 UgxWz7fai70eXgLKLwV4AaABAg 2/2/2020 10:05:14 PM   2/2/2020 10:05:14 PM   0       1          Josh King       That pop filter is majestic!
 ```
+
+#### 🗨️ Remove a YouTube Comment
+
+```
+Remove-YouTubeComment -Id <commentId>
+```
+
+#### 🗨️ Post Comment on YouTube Video 
+
+```
+New-YouTubeComment -ChannelId <channelId> -VideoId <videoId> -Text 'This is a great video! 📺'
+```
+
