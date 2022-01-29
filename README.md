@@ -35,6 +35,7 @@ In order to use this module, you will need to configure an application in [Googl
 * Choose `Create Credentials` --> `oAuth Client ID`
 * For `Application Type`, choose `Web Application`
 * Use the generated `Client ID` and `Client Secret` values to configure the module
+* Add the `RedirectURI` of `http://localhost:8000/auth/complete`
 
 After doing this, run the following command:
 
@@ -47,6 +48,8 @@ After configuring the client ID and client secret values, you will need to login
 ```
 Grant-YouTubeOAuth
 ```
+
+🌎 **NOTE**: Browser detection is not all that great. If you want to override the browser command line, use the `-Browser` parameter. Feel free to recommend improvements to browser detection!
 
 #### Smart TV Auth Flow
 
