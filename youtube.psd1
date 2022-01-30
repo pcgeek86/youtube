@@ -24,6 +24,7 @@
     'Remove-YouTubeSubscription'
     'Get-YouTubeActivity'
     'Get-YouTubeChannel'
+    'Set-YouTubeVideoRating'
   )
   AliasesToExport = @('')
   VariablesToExport = @('')
