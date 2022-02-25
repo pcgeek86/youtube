@@ -31,8 +31,8 @@
   PrivateData = @{
     PSData = @{
       Tags = @('google', 'youtube')
-      LicenseUri = ''
-      ProjectUri = ''
+      LicenseUri = 'https://github.com/pcgeek86/youtube/blob/main/LICENSE'
+      ProjectUri = 'https://github.com/pcgeek86/youtube/'
       IconUri = ''
       ReleaseNotes = @'
 0.2 
