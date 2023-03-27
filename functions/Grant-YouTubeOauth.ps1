@@ -49,5 +49,10 @@ function Grant-YoutubeOauth {
   Write-Verbose -Message ('Browser command line is: ' -f $Browser)
   Start-Process -FilePath $Browser -ArgumentList ('"{0}"' -f $Uri) -Wait
 
-  Stop-Job -Name $JobName
+  if (!$IsMacOS) {
+    Stop-Job -Name $JobName
+  }
+  else {
+    Write-Warning -Message 'Please manually stop the Background Job running the Pode web server after completing authentication. Cannot wait for browser process to complete on MacOS.'
+  }
 }
