@@ -19,7 +19,6 @@ function Grant-YoutubeOauth {
       Add-PodeRoute -Method Get -Path /auth/complete -ScriptBlock {
         @{
           access_token = $WebEvent.Query['access_token']
-          refresh_token = $WebEvent.Query['refresh_token']
         } | ConvertTo-Json | Set-Content -Path $HOME/.pwsh.youtube.oauth.json
 
         $Response = @'
@@ -28,11 +27,8 @@ function Grant-YoutubeOauth {
         <script>
           console.log(window.location.hash);
           let access_token_regex = /access_token=(?<access_token>.*?)&token_type/;
-          let access_token_result = access_token_regex.exec(window.location.hash);
-
-          let refresh_token_regex = /refresh_token=(?<refresh_token>.*?)&/;
-          let refresh_token_result = refresh_token_regex.exec(window.location.hash);
-          fetch(`/auth/complete?access_token=${access_token_result.groups.access_token}&refresh_token=${refresh_token_result.groups.refresh_token}`);
+          let result = access_token_regex.exec(window.location.hash);
+          fetch(`/auth/complete?access_token=${result.groups.access_token}`);
         </script>
 '@
         Write-PodeHtmlResponse -Value $Response
@@ -47,7 +43,7 @@ function Grant-YoutubeOauth {
     'https://www.googleapis.com/auth/youtube.force-ssl'
     'https://www.googleapis.com/auth/youtube.readonly'
   )
-  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&access_type=offline&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($ScopeList -join ' ')
+  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($ScopeList -join ' ')
 
   $Browser = $BrowserCommand ? $BrowserCommand : (Find-Browser)
   Write-Verbose -Message ('Browser command line is: ' -f $Browser)
