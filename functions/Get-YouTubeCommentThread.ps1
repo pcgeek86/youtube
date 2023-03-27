@@ -12,8 +12,10 @@ function Get-YouTubeCommentThread {
     [switch] $Raw,
     [Parameter(Mandatory = $false, ParameterSetName = 'VideoId')]
     [Parameter(Mandatory = $false, ParameterSetName = 'ChannelRelated')]
-    [int] $MaxResults = 100
-    [switch] $IncludePageToken
+    [int] $MaxResults = 100,
+    [Parameter(Mandatory = $false, ParameterSetName = 'VideoId')]
+    [Parameter(Mandatory = $false, ParameterSetName = 'ChannelRelated')]
+    [string] $PageToken = ''
   )
 
   $Uri = 'https://www.googleapis.com/youtube/v3/commentThreads?part=id,replies,snippet'
@@ -26,7 +28,11 @@ function Get-YouTubeCommentThread {
       $Uri += '&allThreadsRelatedToChannelId={0}' -f $RelatedToChannelId
       break
     }
-  } 
+  }
+  
+  if ($PageToken) {
+    $Uri += '&pageToken={0}' -f $PageToken
+  }
 
   $Result = Invoke-RestMethod -Uri $Uri -Headers (Get-AccessToken)
 
