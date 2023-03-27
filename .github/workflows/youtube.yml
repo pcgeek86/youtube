@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone Project Files
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3.5.0
     - name: Increment project build number
       shell: pwsh
       run: |
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone Project Files
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3.5.0
     - name: Publish PowerShell Module
       shell: pwsh
       run: |
@@ -41,15 +41,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone Project Files
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3.5.0
     - name: Log in to the Container registry
-      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      uses: docker/login-action@2.1.0
       with:
         registry: ${{ env.DOCKER_REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push Docker image to GitHub Packages
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v4.0.0
       with:
         context: .
         push: true
