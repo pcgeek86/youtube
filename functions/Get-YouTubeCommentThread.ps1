@@ -13,6 +13,7 @@ function Get-YouTubeCommentThread {
     [Parameter(Mandatory = $false, ParameterSetName = 'VideoId')]
     [Parameter(Mandatory = $false, ParameterSetName = 'ChannelRelated')]
     [int] $MaxResults = 100
+    [switch] $IncludePageToken
   )
 
   $Uri = 'https://www.googleapis.com/youtube/v3/commentThreads?part=id,replies,snippet'
@@ -29,8 +30,9 @@ function Get-YouTubeCommentThread {
 
   $Result = Invoke-RestMethod -Uri $Uri -Headers (Get-AccessToken)
 
+  $Result.items | ForEach-Object -Process { $PSItem.PSTypeNames.Add('YouTube.CommentThread') }
+
   if ($PSBoundParameters.ContainsKey('Raw')) { return $Result }
 
-  $Result.items | ForEach-Object -Process { $PSItem.PSTypeNames.Add('YouTube.CommentThread') }
   $Result.items
 }
