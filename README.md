@@ -110,7 +110,7 @@ LFWxH-bexNk Trevor Sullivan 6307  265   0        22       PT18M48S
 ```
 PS /> Get-YouTubeComment -VideoId LFWxH-bexNk
 
-Get-YouTubeCommentThread -VideoId LFWxH-bexNk
+PS /> Get-YouTubeCommentThread -VideoId LFWxH-bexNk
 
 CommentId                  PublishedAt            Updated At             Replies Like Count Commenter       Text
 ---------                  -----------            ----------             ------- ---------- ---------       ----
@@ -135,15 +135,28 @@ UgwTUdL6EeyOSc-6-8p4AaABAg 2/2/2020 11:46:46 PM   2/2/2020 11:46:46 PM   1      
 UgxWz7fai70eXgLKLwV4AaABAg 2/2/2020 10:05:14 PM   2/2/2020 10:05:14 PM   0       1          Josh King       That pop filter is majestic!
 ```
 
+#### Get Multiple Pages of Comments for Specific Video
+
+Use the `-Raw` parameter to obtain the entire HTTP response payload.
+Then use the value of the `nextPageToken` property and pass it into the `-PageToken` parameter.
+
+```
+PS /> $VideoId = '2guC4Badq2s'
+PS /> $Page1 = Get-YouTubeCommentThread -VideoId $VideoId -Raw
+PS /> $Page2 = Get-YouTubeCommentThread -VideoId $VideoId -Raw -PageToken $Page1.nextPageToken
+PS /> $Page3 = Get-YouTubeCommentThread -VideoId $VideoId -Raw -PageToken $Page2.nextPageToken
+```
+
+
 #### 🗨️ Remove a YouTube Comment
 
 ```
-Remove-YouTubeComment -Id <commentId>
+PS />  Remove-YouTubeComment -Id <commentId>
 ```
 
 #### 🗨️ Post Comment on YouTube Video 
 
 ```
-New-YouTubeComment -ChannelId <channelId> -VideoId <videoId> -Text 'This is a great video! 📺'
+PS /> New-YouTubeComment -ChannelId <channelId> -VideoId <videoId> -Text 'This is a great video! 📺'
 ```
 
