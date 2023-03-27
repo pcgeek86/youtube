@@ -9,13 +9,16 @@ function Get-YouTubeCommentThread {
     [string] $VideoId,
     [Parameter(Mandatory = $true, ParameterSetName = 'ChannelRelated')]
     [string] $RelatedToChannelId,
-    [switch] $Raw
+    [switch] $Raw,
+    [Parameter(Mandatory = $false, ParameterSetName = 'VideoId')]
+    [Parameter(Mandatory = $false, ParameterSetName = 'ChannelRelated')]
+    [int] $MaxResults = 100
   )
 
   $Uri = 'https://www.googleapis.com/youtube/v3/commentThreads?part=id,replies,snippet'
   switch ($PSCmdlet.ParameterSetName) {
     'VideoId' {
-      $Uri += '&videoId={0}' -f $VideoId
+      $Uri += '&videoId={0}&maxResults={1}' -f $VideoId, $MaxResults
       break
     }
     'ChannelRelated' {
