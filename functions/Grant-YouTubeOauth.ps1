@@ -32,7 +32,6 @@ function Grant-YoutubeOauth {
         </script>
 '@
         Write-PodeHtmlResponse -Value $Response
-        Close-PodeServer
       }
     }
   }
@@ -44,7 +43,8 @@ function Grant-YoutubeOauth {
     'https://www.googleapis.com/auth/youtube.force-ssl'
     'https://www.googleapis.com/auth/youtube.readonly'
   )
-  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($ScopeList -join ' ')
+  $scopesURI = [System.Web.HttpUtility]::UrlEncode($ScopeList -join ' ')
+  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($scopesURI)
 
   $Browser = $BrowserCommand ? $BrowserCommand : (Find-Browser)
   Write-Verbose -Message ('Browser command line is: ' -f $Browser)
