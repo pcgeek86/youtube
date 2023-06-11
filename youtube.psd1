@@ -25,7 +25,8 @@
     'Get-YouTubeActivity'
     'Get-YouTubeChannel'
     'Set-YouTubeVideoRating'
-    'Set-YouTubeVideoTags'
+    'Set-YouTubeVideo'
+    'Get-YouTubePlaylist'
   )
   AliasesToExport = @('')
   VariablesToExport = @('')

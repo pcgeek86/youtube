@@ -1,4 +1,4 @@
-function Set-YouTubeVideoTags {
+function Set-YouTubeVideo {
     <#
     .SYNOPSIS
     Updates the tags for a YouTube video.
@@ -30,4 +30,3 @@ function Set-YouTubeVideoTags {
   
     Invoke-RestMethod -Uri $Uri -Headers $Headers -Body $Body -Method Put
   }
-  
