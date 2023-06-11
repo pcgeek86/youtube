@@ -32,6 +32,7 @@ function Grant-YoutubeOauth {
         </script>
 '@
         Write-PodeHtmlResponse -Value $Response
+        Close-PodeServer
       }
     }
   }
@@ -47,12 +48,5 @@ function Grant-YoutubeOauth {
 
   $Browser = $BrowserCommand ? $BrowserCommand : (Find-Browser)
   Write-Verbose -Message ('Browser command line is: ' -f $Browser)
-  Start-Process -FilePath $Browser -ArgumentList ('"{0}"' -f $Uri) -Wait
-
-  if (!$IsMacOS) {
-    Stop-Job -Name $JobName
-  }
-  else {
-    Write-Warning -Message 'Please manually stop the Background Job running the Pode web server after completing authentication. Cannot wait for browser process to complete on MacOS.'
-  }
+  Start-Process -FilePath $Browser -ArgumentList ('"{0}"' -f $Uri)
 }

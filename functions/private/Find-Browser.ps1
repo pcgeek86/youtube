@@ -24,6 +24,7 @@ function Find-Browser {
     'firefox.exe'
     'chrome'
     'firefox'
+    'MicrosoftEdge.exe'
   )
   foreach ($Command in $CommandList) {
     if (Get-Command -Name $Command) { return $Command }
