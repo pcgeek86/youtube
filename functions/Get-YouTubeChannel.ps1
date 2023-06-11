@@ -9,7 +9,8 @@ function Get-YouTubeChannel {
   [CmdletBinding()]
   param (
     [Parameter(ParameterSetName = 'ChannelId')]
-    [string[]] $Id
+    [string[]] $Id,
+    [switch] $Raw
   )
   $Uri = 'https://www.googleapis.com/youtube/v3/channels?part=brandingSettings,contentDetails,contentOwnerDetails,id,snippet,localizations,statistics,status,topicDetails'
 
@@ -22,6 +23,10 @@ function Get-YouTubeChannel {
   $Result = Invoke-RestMethod -Uri $Uri -Method Get -Headers (Get-AccessToken)
   $Result.items | ForEach-Object -Process { $PSItem.PSTypeNames.Add('YouTube.Channel') }
 
-  if ($Raw) { return $Result }
-  $Result.items
+  if ($Raw) { 
+    return $Result 
+  }else{
+    $Result
+  }
+  
 }
