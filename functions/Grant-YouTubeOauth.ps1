@@ -17,10 +17,6 @@ function Grant-YoutubeOauth {
     Start-PodeServer -ScriptBlock {
       Add-PodeEndpoint -Port 8000 -Protocol Http
       Add-PodeRoute -Method Get -Path /auth/complete -ScriptBlock {
-        @{
-          access_token = $WebEvent.Query['access_token']
-        } | ConvertTo-Json | Set-Content -Path $HOME/.pwsh.youtube.oauth.json
-
         $Response = @'
         <h1 style="font-family: sans-serif;">Authentication Complete</h1>
         <h3 style="font-family: sans-serif;">You may close this browser window.</h3>
@@ -28,12 +24,21 @@ function Grant-YoutubeOauth {
           console.log(window.location.hash);
           let access_token_regex = /access_token=(?<access_token>.*?)&token_type/;
           let result = access_token_regex.exec(window.location.hash);
-          fetch(`/auth/complete?access_token=${result.groups.access_token}`);
+          fetch(`/auth/receive?access_token=${result.groups.access_token}`);
         </script>
 '@
-        Write-PodeHtmlResponse -Value $Response
+        Write-PodeHtmlResponse -Value $Response -StatusCode 200
       }
-    }
+
+      Add-Poderoute -Method Get -Path /auth/receive -ScriptBlock{
+        Out-PodeVariable -Name access_token -Value $WebEvent.Query['access_token']
+        Close-PodeServer
+      }
+    }    
+    $token = @{
+      access_token = $access_token
+    } 
+    $token | ConvertTo-Json | Out-File -Path $HOME/.pwsh.youtube.oauth.json
   }
 
   $Client = Get-Content -Path $ConfigPath | ConvertFrom-Json
@@ -44,7 +49,7 @@ function Grant-YoutubeOauth {
     'https://www.googleapis.com/auth/youtube.readonly'
   )
   $scopesURI = [System.Web.HttpUtility]::UrlEncode($ScopeList -join ' ')
-  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={3}&state={2}' -f $Client.client_id, $RedirectUri, (New-Guid).Guid, ($scopesURI)
+  $Uri = 'https://accounts.google.com/o/oauth2/v2/auth?include_granted_scopes=true&response_type=token&client_id={0}&redirect_uri={1}&scope={2}&state={2}' -f $Client.client_id, $RedirectUri, ($scopesURI), (New-Guid).Guid
 
   $Browser = $BrowserCommand ? $BrowserCommand : (Find-Browser)
   Write-Verbose -Message ('Browser command line is: ' -f $Browser)
