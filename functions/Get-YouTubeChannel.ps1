@@ -26,7 +26,7 @@ function Get-YouTubeChannel {
   if ($Raw) { 
     return $Result 
   }else{
-    $Result
+    $Result.items
   }
   
 }
