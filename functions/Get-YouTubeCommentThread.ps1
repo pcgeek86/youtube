@@ -15,6 +15,7 @@ function Get-YouTubeCommentThread {
     [int] $MaxResults = 100,
     [Parameter(Mandatory = $false, ParameterSetName = 'VideoId')]
     [Parameter(Mandatory = $false, ParameterSetName = 'ChannelRelated')]
+    [ValidateNotNullOrEmpty()]
     [string] $PageToken = ''
   )
 
