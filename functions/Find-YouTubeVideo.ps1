@@ -3,6 +3,7 @@ function Find-YouTubeVideo {
   param (
     [Parameter(Mandatory = $true)]
     [string] $Query,
+    [ValidateNotNullOrEmpty()]
     [string] $PageToken,
     [switch] $Raw
   )
