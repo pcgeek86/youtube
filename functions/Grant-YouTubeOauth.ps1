@@ -13,7 +13,7 @@ function Grant-YoutubeOauth {
   )
 
   $JobName = 'youtubetempwebserver'
-  Start-Job -Name $JobName -ScriptBlock {
+  $null = Start-Job -Name $JobName -ScriptBlock {
     Start-PodeServer -ScriptBlock {
       Add-PodeEndpoint -Port 8000 -Protocol Http
       Add-PodeRoute -Method Get -Path /auth/complete -ScriptBlock {
