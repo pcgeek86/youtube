@@ -7,6 +7,7 @@ function Find-YouTubeChannel {
   param (
     [Parameter(Mandatory = $true)]
     [string] $Query,
+    [ValidateNotNullOrEmpty()]
     [string] $PageToken,
     [switch] $Raw
   )
