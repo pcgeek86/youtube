@@ -30,4 +30,5 @@ function Find-Browser {
   foreach ($Command in $CommandList) {
     if (Get-Command -Name $Command -ErrorAction Ignore) { return $Command }
   }
+  throw 'No web browser could be found to use for oAuth'
 }
