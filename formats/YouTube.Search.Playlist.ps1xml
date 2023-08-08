@@ -1,0 +1,55 @@
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>Table</Name>
+            <ViewSelectedBy>
+                <TypeName>YouTube.Search.PlaylistResult</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>ID</Label>
+                        <Width>34</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Published Date</Label>
+                        <Width>22</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Title</Label>
+                        <Width>35</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>ChannelId</Label>
+                        <Width>28</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Channel Title</Label>
+                        <Width>25</Width>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.id.playlistId</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.publishedAt</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.title</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.channelId</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.snippet.channelTitle</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

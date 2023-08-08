@@ -13,6 +13,7 @@
     'Grant-YouTubeOauth'
     'Find-YouTubeVideo'
     'Find-YouTubeChannel'
+    'Find-YouTubePlaylist'
     'Get-YouTubeVideo'
     'Set-YouTubeConfiguration'
     'Get-YouTubeCommentThread'
@@ -25,6 +26,7 @@
     'Get-YouTubeActivity'
     'Get-YouTubeChannel'
     'Set-YouTubeVideoRating'
+
   )
   AliasesToExport = @('')
   VariablesToExport = @('')

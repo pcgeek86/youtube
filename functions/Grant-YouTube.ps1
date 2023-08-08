@@ -11,7 +11,13 @@ function Grant-Youtube {
   Write-Verbose -Message $Client
   $GrantType = 'urn:ietf:params:oauth:grant-type:device_code'
   $Uri = 'https://oauth2.googleapis.com/device/code?client_id={0}&scope={1}' -f $Client.client_id, $Scopes
-  $Response = Invoke-RestMethod -Method Post -Uri $Uri
+  try {
+    $Response = Invoke-RestMethod -Method Post -Uri $Uri -ErrorAction Stop
+  }
+  catch {
+    throw 'Invalid YouTube app configuration. Check your YouTube application configuration in Google Cloud Platform.'
+    return
+  }
   Write-Host -Object ('Open your browser and go to https://www.google.com/device, enter code {0}' -f $Response.user_code)
 
   while ((Get-Date) -lt (Get-Date).AddSeconds($Response.expires_in)) {
