@@ -25,10 +25,11 @@ function Find-Browser {
     'chrome'
     'firefox'
     'MicrosoftEdge.exe'
-    'chromium'
+    'chromium',
+    'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
   )
   foreach ($Command in $CommandList) {
-    if (Get-Command -Name $Command -ErrorAction Ignore) { return $Command }
+    if ($BrowserCommand = Get-Command -Name $Command -ErrorAction Ignore) { return $BrowserCommand.source }
   }
   throw 'No web browser could be found to use for oAuth'
 }
