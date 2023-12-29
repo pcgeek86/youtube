@@ -21,8 +21,9 @@ function Get-YouTubeChannel {
   }
   Write-Verbose -Message $Uri
   $Result = Invoke-RestMethod -Uri $Uri -Method Get -Headers (Get-AccessToken)
-  $Result.items | ForEach-Object -Process { $PSItem.PSTypeNames.Add('YouTube.Channel') }
 
-  if ($Raw) { return $Result }
-  $Result.items
+  if ($PSBoundParameters.ContainsKey('Raw')) { return $Result }
+
+  $Result.items | ForEach-Object -Process { $PSItem.PSTypeNames.Add('YouTube.Channel') }
+  return $Result.Items  
 }
